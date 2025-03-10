@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
@@ -7,7 +6,7 @@ export default function App() {
       <View>
         <Text>View inside of view</Text>
       </View>
-      <Text>Hello!</Text>
+      <Text style={{ margin: 16, borderWidth: 2, borderColor: 'red', padding: 16 }}>Hello!</Text>
       <Button title='tap me!' />
     </View>
   );

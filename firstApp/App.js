@@ -20,7 +20,7 @@ export default function App() {
       });
     });
   };
-  console.log(courseGoals);
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />

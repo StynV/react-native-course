@@ -25,7 +25,8 @@ export default [
         }
       },
       globals: {
-        __DEV__: 'readonly'
+        __DEV__: 'readonly',
+        console: 'readonly'
       }
     },
     settings: {
@@ -52,7 +53,7 @@ export default [
       'react-native/no-color-literals': 'off',
       
       // General rules
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': 'off',
       'no-unused-vars': 'warn'
     }
   }

@@ -26,7 +26,8 @@ export default [
       },
       globals: {
         __DEV__: 'readonly',
-        console: 'readonly'
+        console: 'readonly',
+        require: 'readonly'
       }
     },
     settings: {

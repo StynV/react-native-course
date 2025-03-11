@@ -7,7 +7,7 @@ export default function App() {
         <Text>View inside of view</Text>
       </View>
       <Text style={{ margin: 16, borderWidth: 2, borderColor: 'red', padding: 16 }}>Hello!</Text>
-      <Button title='tap me!' />
+      <Button title="tap me!" />
     </View>
   );
 }

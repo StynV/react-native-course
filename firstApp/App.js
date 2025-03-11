@@ -4,9 +4,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View>
-        <Text>View inside of view</Text>
+        <Text style={styles.text}>View inside of view</Text>
       </View>
-      <Text style={{ margin: 16, borderWidth: 2, borderColor: 'red', padding: 16 }}>Hello!</Text>
+      <Text style={styles.text}>Hello!</Text>
       <Button title="tap me!" />
     </View>
   );
@@ -18,5 +18,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    margin: 16,
+    borderWidth: 2,
+    borderColor: 'red',
+    padding: 16,
   },
 });

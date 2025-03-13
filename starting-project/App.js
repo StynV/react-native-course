@@ -24,7 +24,7 @@ export default function App() {
   if (userNumber) {
     screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
   }
-
+  // let screen;
   if (gameIsOver) {
     screen = <GameOverScreen />;
   }

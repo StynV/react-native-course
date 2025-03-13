@@ -30,15 +30,15 @@ export default function App() {
     setGameIsOver(true);
   };
 
-  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
+  // let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
-  if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
-  }
-  // let screen;
-  if (gameIsOver) {
-    screen = <GameOverScreen />;
-  }
+  // if (userNumber) {
+  //   screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
+  // }
+  // if (gameIsOver) {
+  let screen;
+  screen = <GameOverScreen />;
+  // }
 
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>

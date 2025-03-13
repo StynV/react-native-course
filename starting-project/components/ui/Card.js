@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    marginTop: 100,
     marginHorizontal: 24,
     backgroundColor: Colors.primary800,
     borderRadius: 8,

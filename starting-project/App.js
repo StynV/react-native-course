@@ -37,21 +37,21 @@ export default function App() {
     setGuessRounds(0);
   };
 
-  // let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
+  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
-  // if (userNumber) {
-  //   screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
-  // }
-  // if (gameIsOver) {
-  let screen;
-  screen = (
-    <GameOverScreen
-      userNumber={userNumber}
-      roundsNumber={guessRounds}
-      onGameOver={startNewGameHandler}
-    />
-  );
-  // }
+  if (userNumber) {
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
+  }
+  if (gameIsOver) {
+    // let screen;
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber}
+        roundsNumber={guessRounds}
+        onGameOver={startNewGameHandler}
+      />
+    );
+  }
 
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>

@@ -1,10 +1,11 @@
 import { Pressable, Text, View, StyleSheet, Platform } from 'react-native';
 
-const CategoryGridTile = ({ title, color }) => (
+const CategoryGridTile = ({ title, color, onPress }) => (
   <View style={[styles.gridItem]}>
     <Pressable
       android_ripple={{ color: '#cccccc' }}
-      style={({ pressed }) => [styles.button, pressed ? styles.buttonPressed : null]}>
+      style={({ pressed }) => [styles.button, pressed ? styles.buttonPressed : null]}
+      onPress={onPress}>
       <View style={[styles.innerContainer, { backgroundColor: color }]}>
         <Text style={styles.title}>{title}</Text>
       </View>

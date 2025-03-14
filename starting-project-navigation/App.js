@@ -9,11 +9,11 @@ const Stack = createNativeStackNavigator();
 
 const App = () => (
   <>
-    <StatusBar style="const [second] = first" />
+    <StatusBar style="light" />
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: '#cccccc' },
+          headerStyle: { backgroundColor: '#351401' },
           headerTintColor: 'white',
           contentStyle: {
             backgroundColor: '#3f2f25',

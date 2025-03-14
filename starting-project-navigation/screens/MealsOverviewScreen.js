@@ -7,7 +7,15 @@ const MealsOverviewScreen = ({ route }) => {
     mealItem.categoryIds.indexOf(route.params.categoryId >= 0),
   );
 
-  const renderMealItem = item => <MealItem title={item.item.title} />;
+  const renderMealItem = item => (
+    <MealItem
+      title={item.item.title}
+      imageUrl={item.item.imageUrl}
+      duration={item.item.duration}
+      complexity={item.item.complexity}
+      affordability={item.item.affordability}
+    />
+  );
 
   return (
     <View style={styles.container}>

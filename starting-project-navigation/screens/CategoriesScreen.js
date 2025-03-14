@@ -7,7 +7,12 @@ const renderCategoryItem = item => (
 );
 
 const CategoriesScreen = () => (
-  <FlatList data={CATEGORIES} keyExtractor={item => item.id} renderItem={renderCategoryItem} />
+  <FlatList
+    data={CATEGORIES}
+    keyExtractor={item => item.id}
+    renderItem={renderCategoryItem}
+    numColumns={2}
+  />
 );
 
 export default CategoriesScreen;

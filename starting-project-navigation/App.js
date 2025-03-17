@@ -1,12 +1,22 @@
-import { Button, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetailScreen from './screens/MealDetailScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import FavoritesScreen from './screens/FavoritesScreen.js';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const DrawerNavigator = () => (
+  <Drawer.Navigator>
+    <Drawer.Screen name="Categories" component={CategoriesScreen} />
+    <Drawer.Screen name="Favorites" component={FavoritesScreen} />
+  </Drawer.Navigator>
+);
 
 const App = () => (
   <>
@@ -21,9 +31,14 @@ const App = () => (
           },
         }}>
         <Stack.Screen
-          name="MealsCategories"
-          component={CategoriesScreen}
-          options={{ title: 'All categories' }}
+          name="Drawer"
+          // component={CategoriesScreen}
+          component={DrawerNavigator}
+          options={
+            {
+              // title: 'All categories',
+            }
+          }
         />
         <Stack.Screen
           name="MealsOverview"

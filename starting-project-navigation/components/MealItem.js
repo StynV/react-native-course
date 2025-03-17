@@ -1,25 +1,37 @@
+import { useNavigation } from '@react-navigation/native';
 import { Image, Pressable, Text, View, StyleSheet, Platform } from 'react-native';
 
-const MealItem = ({ title, imageUrl, duration, complexity, affordability }) => (
-  <View style={styles.mealItem}>
-    <Pressable
-      android_ripple={{ color: '#cccccc' }}
-      style={({ pressed }) => (pressed ? styles.buttonPressed : null)}>
-      <View style={styles.innerContainer}>
-        <View>
-          <Image source={{ uri: imageUrl }} style={styles.image} />
-          <Text style={styles.title}>{title}</Text>
-        </View>
+const MealItem = ({ id, title, imageUrl, duration, complexity, affordability }) => {
+  const navigation = useNavigation();
 
-        <View style={styles.details}>
-          <Text style={styles.detailItem}>{duration}</Text>
-          <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-          <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
+  const selectMealItemHandler = () => {
+    navigation.navigate('MealDetail', {
+      mealId: id,
+    });
+  };
+
+  return (
+    <View style={styles.mealItem}>
+      <Pressable
+        android_ripple={{ color: '#cccccc' }}
+        style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+        onPress={selectMealItemHandler}>
+        <View style={styles.innerContainer}>
+          <View>
+            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Text style={styles.title}>{title}</Text>
+          </View>
+
+          <View style={styles.details}>
+            <Text style={styles.detailItem}>{duration}</Text>
+            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
+            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
+          </View>
         </View>
-      </View>
-    </Pressable>
-  </View>
-);
+      </Pressable>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   mealItem: {

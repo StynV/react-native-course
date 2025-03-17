@@ -15,8 +15,16 @@ const MealsOverviewScreen = ({ route, navigation }) => {
     });
   }, [catid, navigation]);
 
+  const pressHandler = item => {
+    console.log(item.item);
+    navigation.navigate('MealDetail', {
+      id: item.id,
+    });
+  };
+
   const renderMealItem = item => (
     <MealItem
+      id={item.item.id}
       title={item.item.title}
       imageUrl={item.item.imageUrl}
       duration={item.item.duration}

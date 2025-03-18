@@ -16,7 +16,9 @@ const ManageExpense = ({ route, navigation }) => {
 
   const deleteExpenseHandler = () => {};
 
-  const cancelhandler = () => {};
+  const cancelhandler = () => {
+    navigation.goBack();
+  };
 
   const confirmHandler = () => {};
 

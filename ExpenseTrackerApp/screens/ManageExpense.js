@@ -2,7 +2,6 @@ import { useContext, useLayoutEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import IconButton from '../components/ui/IconButton';
 import { GlobalStyles } from '../constants/styles';
-import Button from '../components/ui/Button';
 import { ExpensesContext } from '../store/expenses-context';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 
@@ -11,6 +10,8 @@ const ManageExpense = ({ route, navigation }) => {
 
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
+
+  const selectedExpense = expensesCtx.expenses.find(expense => expense.id === editedExpenseId);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -27,15 +28,11 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const confirmHandler = () => {
+  const confirmHandler = expenseData => {
     if (isEditing) {
-      expensesCtx.updateExpense(editedExpenseId, {
-        description: 'updatedDescription',
-        amount: 29.99,
-        date: new Date(),
-      });
+      expensesCtx.updateExpense(editedExpenseId, expenseData);
     } else {
-      expensesCtx.addExpense({ description: 'description', amount: 19.99, date: new Date() });
+      expensesCtx.addExpense(expenseData);
     }
 
     navigation.goBack();
@@ -43,16 +40,12 @@ const ManageExpense = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ExpenseForm />
-
-      <View style={styles.buttons}>
-        <Button mode="flat" onPress={cancelhandler} style={styles.button}>
-          Cancel
-        </Button>
-        <Button onPress={confirmHandler} style={styles.button}>
-          {isEditing ? 'Update' : 'Add'}
-        </Button>
-      </View>
+      <ExpenseForm
+        onCancel={cancelhandler}
+        onSubmit={confirmHandler}
+        submitButtonLabel={isEditing ? 'Update' : 'Add'}
+        defaultValue={selectedExpense}
+      />
 
       {isEditing && (
         <View style={styles.deleteContainer}>
@@ -73,15 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     backgroundColor: GlobalStyles.colors.primary800,
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
   },
   deleteContainer: {
     marginTop: 16,

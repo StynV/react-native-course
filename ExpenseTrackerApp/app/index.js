@@ -42,7 +42,7 @@ const ExpensesOverview = () => (
 export default function Page() {
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
 
       <Stack.Navigator>
         <Stack.Screen

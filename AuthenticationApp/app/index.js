@@ -21,7 +21,7 @@ const AuthenticatedStack = () => (
 export default function Page() {
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
 
       <Stack.Navigator
         screenOptions={{

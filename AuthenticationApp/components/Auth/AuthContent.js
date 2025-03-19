@@ -4,6 +4,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
 import { Colors } from '../../constants/styles';
+import { useNavigation } from 'expo-router';
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -13,8 +14,14 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
     confirmPassword: false,
   });
 
+  const navigation = useNavigation();
+
   const switchAuthModeHandler = () => {
-    // Todo
+    if (isLogin) {
+      navigation.navigate('Signup');
+    } else {
+      navigation.navigate('Login');
+    }
   };
 
   const submitHandler = credentials => {

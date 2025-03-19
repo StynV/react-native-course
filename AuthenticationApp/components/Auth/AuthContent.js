@@ -18,9 +18,9 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
 
   const switchAuthModeHandler = () => {
     if (isLogin) {
-      navigation.navigate('Signup');
+      navigation.replace('Signup');
     } else {
-      navigation.navigate('Login');
+      navigation.replace('Login');
     }
   };
 

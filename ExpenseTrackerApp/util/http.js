@@ -5,7 +5,8 @@ const BACKEND_URL = 'https://react-native-1ec13-default-rtdb.europe-west1.fireba
 export const storeExpense = async expenseData => {
   try {
     const response = await axios.post(BACKEND_URL + 'expenses.json', expenseData);
-    return response.data;
+    const id = response.data.name;
+    return id;
   } catch (error) {
     console.error('Error storing expense: ', error);
     throw error;
@@ -32,4 +33,12 @@ export const fetchExpenses = async () => {
     console.error('Error fetching expense: ', error);
     throw error;
   }
+};
+
+export const updateExpense = (id, expenseData) => {
+  return axios.put(`${BACKEND_URL}expenses/${id}.json`, expenseData);
+};
+
+export const deleteExpense = (id, expenseData) => {
+  return axios.delete(`${BACKEND_URL}expenses/${id}.json`);
 };

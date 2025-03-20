@@ -26,7 +26,7 @@ export default function Page() {
             headerRight: ({ tintColor }) => (
               <IconButton
                 icon="add"
-                size={24}
+                size={32}
                 color={tintColor}
                 onPress={() => navigation.navigate('AddPlace')}
               />

@@ -4,10 +4,12 @@ import { Colors } from '../../constants/colors';
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
 import { useState } from 'react';
 import { getMapPreview } from '../../util/location';
+import { useNavigation } from 'expo-router';
 
 const LocationPicker = () => {
   const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
   const [pickedLocation, setPickedLocation] = useState();
+  const navigation = useNavigation();
 
   const verifyPermissions = async () => {
     if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -41,7 +43,9 @@ const LocationPicker = () => {
     });
   };
 
-  const pickOnMapHandler = () => {};
+  const pickOnMapHandler = () => {
+    navigation.navigate('Map');
+  };
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
@@ -69,6 +73,7 @@ const LocationPicker = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   mapPreview: {
     width: '100%',
@@ -78,6 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary100,
     borderRadius: 4,
+    overflow: 'hidden',
   },
   actions: {
     flexDirection: 'row',
@@ -87,6 +93,7 @@ const styles = StyleSheet.create({
   mapPreviewImage: {
     width: '100%',
     height: '100%',
+    borderRadius: 4,
   },
 });
 

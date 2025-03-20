@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
+import ImagePicker from './ImagePicker';
 
 const PlaceForm = () => {
   const [enteredTitle, setEnteredTitle] = useState();
@@ -15,6 +16,8 @@ const PlaceForm = () => {
         <Text style={styles.label}>Title</Text>
         <TextInput style={styles.input} onChange={changeTitleHandler} value={enteredTitle} />
       </View>
+
+      <ImagePicker />
     </ScrollView>
   );
 };
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
     color: Colors.primary500,
   },
   input: {
-    // marginVertical: 8,
+    marginBottom: 8,
     paddingHorizontal: 4,
     paddingVertical: 8,
     fontSize: 16,

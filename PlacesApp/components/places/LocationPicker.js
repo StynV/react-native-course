@@ -3,11 +3,11 @@ import OutlinedButton from '../UI/OutlinedButton';
 import { Colors } from '../../constants/colors';
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
 import { useEffect, useState } from 'react';
-import { getMapPreview } from '../../util/location';
+import { getAddress, getMapPreview } from '../../util/location';
 import { useNavigation } from 'expo-router';
 import { useIsFocused, useRoute } from '@react-navigation/native';
 
-const LocationPicker = () => {
+const LocationPicker = ({ onPickLocation }) => {
   const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
   const [pickedLocation, setPickedLocation] = useState();
   const navigation = useNavigation();
@@ -23,6 +23,17 @@ const LocationPicker = () => {
       setPickedLocation(mapPickedLocation);
     }
   }, [isFocused, route]);
+
+  useEffect(() => {
+    const handleLocation = async () => {
+      if (pickedLocation) {
+        const address = await getAddress(pickedLocation.lat, pickedLocation.lng);
+        onPickLocation({ ...pickedLocation, address: address });
+      }
+    };
+
+    handleLocation();
+  }, [onPickLocation, pickedLocation]);
 
   const verifyPermissions = async () => {
     if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {

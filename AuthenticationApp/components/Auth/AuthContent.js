@@ -1,10 +1,17 @@
-import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, Button, StyleSheet, View } from 'react-native';
 
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
 import { Colors } from '../../constants/styles';
 import { useNavigation } from 'expo-router';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return { shouldPlaySound: false, shouldSetBadge: false, shouldShowAlert: true };
+  },
+});
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -15,6 +22,23 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
   });
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(notification => {
+      console.log('got notification');
+      console.log(notification);
+    });
+
+    const subscription1 = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log('got notification response');
+      console.log(response.response);
+    });
+
+    return () => {
+      subscription.remove();
+      subscription1.remove();
+    };
+  }, []);
 
   const switchAuthModeHandler = () => {
     if (isLogin) {
@@ -52,8 +76,18 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
     onAuthenticate({ email, password });
   };
 
+  const scheduleNotificationHandler = () => {
+    Notifications.scheduleNotificationAsync({
+      content: { title: 'Notification', body: 'Hello', data: { userName: 'test' } },
+      trigger: {
+        seconds: 5,
+      },
+    });
+  };
+
   return (
     <View style={styles.authContent}>
+      <Button title="Notification" onPress={scheduleNotificationHandler} />
       <AuthForm
         isLogin={isLogin}
         onSubmit={submitHandler}

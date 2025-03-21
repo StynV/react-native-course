@@ -12,7 +12,9 @@ const AddPlace = ({ navigation }) => {
   const createPlaceHandler = useCallback(
     async place => {
       await insertPlace(place);
-      navigation.navigate('AllPlaces', { place });
+      navigation.navigate('AllPlaces', {
+        //  place
+      });
     },
     [navigation],
   );

@@ -14,7 +14,7 @@ export const getAddress = async (latitude, longitude) => {
   const result = await fetch(imagePreviewUrl);
 
   if (!result.ok) {
-    throw new Error('Failed to fetch address');
+    return 'address';
   }
 
   const data = await result.json();

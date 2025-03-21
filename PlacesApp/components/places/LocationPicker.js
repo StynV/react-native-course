@@ -7,33 +7,29 @@ import { getAddress, getMapPreview } from '../../util/location';
 import { useNavigation } from 'expo-router';
 import { useIsFocused, useRoute } from '@react-navigation/native';
 
-const LocationPicker = ({ onPickLocation }) => {
+const LocationPicker = ({ onPickLocation, pickedLocation }) => {
   const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
-  const [pickedLocation, setPickedLocation] = useState();
+  const [pickedLoc, setPickedLoc] = useState(pickedLocation);
   const navigation = useNavigation();
   const route = useRoute();
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused && route.params) {
+    if (isFocused && route.params?.pickedLat && route.params?.pickedLng) {
       const mapPickedLocation = {
         lat: route.params.pickedLat,
         lng: route.params.pickedLng,
       };
-      setPickedLocation(mapPickedLocation);
+      setPickedLoc(mapPickedLocation);
+      onPickLocation(mapPickedLocation);
     }
-  }, [isFocused, route]);
+  }, [isFocused, route, onPickLocation]);
 
   useEffect(() => {
-    const handleLocation = async () => {
-      if (pickedLocation) {
-        const address = await getAddress(pickedLocation.lat, pickedLocation.lng);
-        onPickLocation({ ...pickedLocation, address: address });
-      }
-    };
-
-    handleLocation();
-  }, [onPickLocation, pickedLocation]);
+    if (pickedLocation) {
+      setPickedLoc(pickedLocation);
+    }
+  }, [pickedLocation]);
 
   const verifyPermissions = async () => {
     if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -46,7 +42,6 @@ const LocationPicker = ({ onPickLocation }) => {
         'Insufficient permissions',
         'You need to grant location permissions to use this app',
       );
-
       return false;
     }
 
@@ -61,7 +56,12 @@ const LocationPicker = ({ onPickLocation }) => {
     }
 
     const location = await getCurrentPositionAsync();
-    setPickedLocation({
+    setPickedLoc({
+      lat: location.coords.latitude,
+      lng: location.coords.longitude,
+    });
+
+    onPickLocation({
       lat: location.coords.latitude,
       lng: location.coords.longitude,
     });
@@ -73,11 +73,10 @@ const LocationPicker = ({ onPickLocation }) => {
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
-  if (pickedLocation) {
-    console.log(getMapPreview(pickedLocation.lat, pickedLocation.lng));
+  if (pickedLoc) {
     locationPreview = (
       <Image
-        source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }}
+        source={{ uri: getMapPreview(pickedLoc.lat, pickedLoc.lng) }}
         style={styles.mapPreviewImage}
       />
     );

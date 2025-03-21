@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
 import ImagePicker from './ImagePicker';
@@ -6,10 +6,16 @@ import LocationPicker from './LocationPicker';
 import Button from '../UI/Button';
 import Place from '../../models/place';
 
-const PlaceForm = ({ onCreatePlace }) => {
+const PlaceForm = ({ onCreatePlace, pickedLocation }) => {
   const [enteredTitle, setEnteredTitle] = useState('');
   const [selectedImage, setSelectedImage] = useState();
-  const [pickedLocation, setPickedLocation] = useState();
+  const [location, setLocation] = useState(pickedLocation);
+
+  useEffect(() => {
+    if (pickedLocation) {
+      setLocation(pickedLocation);
+    }
+  }, [pickedLocation]);
 
   const changeTitleHandler = enteredText => {
     setEnteredTitle(enteredText);
@@ -20,11 +26,11 @@ const PlaceForm = ({ onCreatePlace }) => {
   };
 
   const pickLocationHandler = useCallback(location => {
-    setPickedLocation(location);
+    setLocation(location);
   }, []);
 
   const savePlaceHandler = () => {
-    const placeData = new Place(enteredTitle, selectedImage, pickedLocation);
+    const placeData = new Place(enteredTitle, selectedImage, location);
     onCreatePlace(placeData);
   };
 
@@ -32,12 +38,12 @@ const PlaceForm = ({ onCreatePlace }) => {
     <ScrollView style={styles.form}>
       <View>
         <Text style={styles.label}>Title</Text>
-        <TextInput style={styles.input} onChange={changeTitleHandler} value={enteredTitle} />
+        <TextInput style={styles.input} onChangeText={changeTitleHandler} value={enteredTitle} />
       </View>
 
       <ImagePicker onTakeImage={takeImageHandler} />
 
-      <LocationPicker onPickLocation={pickLocationHandler} />
+      <LocationPicker onPickLocation={pickLocationHandler} pickedLocation={location} />
 
       <Button onPress={savePlaceHandler}>Add place</Button>
     </ScrollView>
